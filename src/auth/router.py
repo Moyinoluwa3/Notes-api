@@ -2,7 +2,6 @@ from databases.interfaces import Record
 from fastapi import APIRouter, BackgroundTasks, Depends, Response, status
 
 from src.auth import jwt, service, utils
-from src.auth.jwt import parse_jwt_user_data
 from src.auth.schemas import AccessTokenResponse, AuthUser, JWTData, UserResponse
 
 router = APIRouter()

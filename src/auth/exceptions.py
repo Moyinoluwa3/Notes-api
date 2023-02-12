@@ -7,9 +7,10 @@ class ErrorCode:
     INVALID_TOKEN = "Invalid token."
     INVALID_CREDENTIALS = "Invalid credentials."
     EMAIL_TAKEN = "Email is already taken."
-    REFRESH_TOKEN_NOT_VALID = "Refresh token is not valid."
-    REFRESH_TOKEN_REQUIRED = "Refresh token is required either in the body or cookie."
+    TOKEN_NOT_VALID = "Refresh token is not valid."
+    TOKEN_REQUIRED = "Refresh token is required either in the body or cookie."
     USER_NOT_FOUND = "This User was not Found"
+    TOKEN_EXPIRED = "Token expired"
 
 
 class AuthRequired(NotAuthenticated):
@@ -32,8 +33,11 @@ class EmailTaken(BadRequest):
     DETAIL = ErrorCode.EMAIL_TAKEN
 
 
-class RefreshTokenNotValid(NotAuthenticated):
-    DETAIL = ErrorCode.REFRESH_TOKEN_NOT_VALID
+class TokenNotValid(NotAuthenticated):
+    DETAIL = ErrorCode.TOKEN_NOT_VALID
 
 class UserNotFound(NotFound):
      DETAIL = ErrorCode.USER_NOT_FOUND
+
+class TokenExpired(NotAuthenticated):
+    DETAIL = ErrorCode.TOKEN_EXPIRED

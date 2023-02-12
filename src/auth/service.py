@@ -9,7 +9,7 @@ from src.auth.config import auth_config
 from src.auth.exceptions import InvalidCredentials,UserNotFound,EmailTaken
 from src.auth.schemas import AuthUser
 from src.auth.security import check_password, hash_password
-from src.database import auth_user, get_db
+from src.database import  get_db
 from src.models import User
 from src.auth.jwt import create_access_token
 
@@ -42,7 +42,7 @@ def Get_user(id: int,db : Session = Depends(get_db) ):
 
 
 async def get_user_by_email(email: str,db : Session = Depends(get_db)) -> Record | None:
-    user = await db.query(User).filter(User.email == user.email).first()
+    user = await db.query(User).filter(User.email == email).first()
     if not user:
         raise UserNotFound()
     return user
@@ -55,7 +55,7 @@ async def authenticate_user(auth_data: AuthUser) -> Record:
 
     if not check_password(auth_data.password, user["password"]):
         raise InvalidCredentials()
-    access_token = create_access_token(auth_data.id)
+    access_token = create_access_token(user)
 
     return {"access_token": access_token, "token_type": "bearer"}
     
